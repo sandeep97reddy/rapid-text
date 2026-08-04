@@ -1,0 +1,1 @@
+// Rapid Text types index

@@ -1,0 +1,340 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@source "node_modules/streamdown/dist/**/*.{js,ts,jsx,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --cursor-type: default;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Apply global transparency without forcing GPU backdrop-blur passes on every card */
+[data-slot="card"] {
+  background-color: rgb(from var(--card) r g b / var(--opacity, 1)) !important;
+}
+
+[data-slot="popover-content"] {
+  background-color: rgb(
+    from var(--popover) r g b / var(--opacity, 1)
+  ) !important;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(from var(--muted-foreground) r g b / 0.2) transparent !important;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent !important;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(from var(--muted-foreground) r g b / 0.2) !important;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(from var(--muted-foreground) r g b / 0.3) !important;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Base cursor fallback (inherits unless overridden) */
+html {
+  cursor: var(--cursor-type, default);
+}
+
+/* Invisible mode overrides everything to prevent native cursor flashes */
+.cursor-invisible,
+.cursor-invisible * {
+  cursor: none !important;
+}
+
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Streamdown code block styling */
+[data-streamdown="code-block"] code {
+  color: inherit !important;
+}
+
+.dark [data-streamdown="code-block"] code span {
+  color: var(--shiki-dark) !important;
+}
+
+/* Fallback for code text color in dark mode */
+.dark [data-streamdown="code-block"] code {
+  color: oklch(0.985 0 0) !important;
+}
+
+/* Fix viewport overflow for markdown content */
+[data-streamdown="code-block"],
+[data-streamdown="table"] {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+}
+
+[data-streamdown="code-block"] pre,
+[data-streamdown="code-block"] code {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+/* Click-through mode global safeguards */
+html[data-click-through="true"] a,
+html[data-click-through="true"] button,
+html[data-click-through="true"] input,
+html[data-click-through="true"] select,
+html[data-click-through="true"] textarea,
+html[data-click-through="true"] [role="button"],
+html[data-click-through="true"] [role="dialog"],
+html[data-click-through="true"] [contenteditable],
+html[data-click-through="true"] [data-radix-popper-content-wrapper],
+html[data-click-through="true"] [tabindex] {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* Suppress focus rings on all elements when click-through is enabled */
+html[data-click-through="true"] *:focus,
+html[data-click-through="true"] *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit !important;
+}
+
+/* Visually hide portaled dialogs and popovers EXCEPT notes popover */
+html, body, #root {
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.rapid-pill-container {
+  width: 40px;
+  height: 40px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(96, 165, 250, 0.35);
+  border-radius: 50%;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rapid-pill-container:hover {
+  transform: scale(1.08);
+  border-color: rgba(96, 165, 250, 0.6);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
+}
+
+/* Idle pulse keyframes (blue glow) */
+@keyframes pill-idle-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4);
+    border-color: rgba(96, 165, 250, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(96, 165, 250, 0);
+    border-color: rgba(96, 165, 250, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0);
+    border-color: rgba(96, 165, 250, 0.35);
+  }
+}
+
+/* Recording pulse keyframes (green glow) */
+@keyframes pill-record-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+    border-color: rgba(74, 222, 128, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+    border-color: rgba(74, 222, 128, 0.6);
+  }
+}
+
+/* Transcribing spinner ring keyframes */
+@keyframes spin-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.state-idle {
+  animation: pill-idle-pulse 2.5s infinite;
+}
+
+.state-recording {
+  animation: pill-record-pulse 1.5s infinite;
+  background: rgba(74, 222, 128, 0.05);
+}
+
+.state-transcribing {
+  position: relative;
+  background: rgba(192, 132, 252, 0.05);
+  border-color: rgba(192, 132, 252, 0.4);
+}
+
+.transcribing-ring {
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: rgb(192, 132, 252);
+  border-right-color: rgb(192, 132, 252);
+  animation: spin-ring 1s linear infinite;
+  pointer-events: none;
+}

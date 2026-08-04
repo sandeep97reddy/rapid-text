@@ -1,0 +1,63 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Rapid Text",
+  "version": "0.1.26",
+  "identifier": "com.rapidtext.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:51420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "macOSPrivateApi": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Rapid Text",
+        "width": 54,
+        "height": 54,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "resizable": false,
+        "visibleOnAllWorkspaces": true,
+        "skipTaskbar": false,
+        "visible": false,
+        "center": false,
+        "contentProtected": false,
+        "focus": true,
+        "acceptFirstMouse": true,
+        "shadow": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "createUpdaterArtifacts": false,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [
+      "info.plist"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "10.13"
+    }
+  },
+  "plugins": {
+    "sql": {
+      "preload": [
+        "sqlite:rapidtext.db"
+      ]
+    }
+  }
+}
